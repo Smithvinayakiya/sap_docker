@@ -1,0 +1,15 @@
+version: '3'
+services:
+  demoapp:
+    image: hello-world-docker:latest
+    ports:
+    - "9090:8080"
+    networks:
+      - demoappnet
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+networks:
+  demoappnet:
+               

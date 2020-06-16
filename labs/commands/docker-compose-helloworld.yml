@@ -1,0 +1,6 @@
+version: '3.3'
+services:
+ hello-world:
+    image: hello-world-docker
+    ports:
+    - "9090:8080"     
