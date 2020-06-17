@@ -36,21 +36,20 @@ Docker
 		step 4: npm start | java -jar app.jar
 		step 5: expose ports - 3000
 		
-		
 	- Build Docker Image
 	- Launch Docker Container
 	
 	- Export/Import Docker Image locally
-	- Export/Load Docker Container locally
+	- Export/Load Docker Container locally	
+
+	- Connect to Running Docker Container
+	- Make changes in Container and Commit
 	
 	- Working with Public Registry
 		- Create Account in https://hub.docker.com
 		- Docker Login
 		- Tag Image and Push Image
-		- Docker Logout
-		
-	- Connect to Running Docker Container
-	- Make changes in Container and Commit
+		- Docker Logout	
 		
 	- Eclipse Docker Tooling plugin
 	
