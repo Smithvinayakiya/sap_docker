@@ -20,50 +20,62 @@ docker rm <container id/name>							(=> Remove container)
 docker image rm <image id/name>							(=> Remove image)
 docker pull <image id/name>								(=> Pull image from Hub)
 docker inspect <containerid>							(=> List docker container detail)
-docker build <dockerfilepath> <target image path>		(=> Build image from Dockerfile)
-docker build --build-arg JAR_FILE=a_value .				(=> Build image with command line args)
-docker build -t hello-world-docker --build-arg JAR_FILE=./target/*.jar .		(=> Build image with command line args)
-docker-machine ip										(=> Show docker machine ip)
 docker exec -it <container name> /bin/bash				(=> Connect to running container in bash mode)
 docker exec -it <container name> /bin/sh				(=> Connect to running container in sh mode)
 docker commit <container name> <imagename>				(=> Commits container changes into an image)
+docker build <dockerfilepath> <target image path>		(=> Build image from Dockerfile)
+docker build --build-arg JAR_FILE=a_value .				(=> Build image with command line args)
+docker build -t hello-world-docker --build-arg JAR_FILE=./target/*.jar .		(=> Build image with command line args)
 
-#Hello World Docker Example
-docker build -t hello-world-docker:latest .
-docker run -p 8080:8080 --name="hello-world-docker" hello-world-docker
+#Ngnix
+docker run --detach --publish=80:80 --name=webserver nginx
+docker run -d -p 80:80 --name=webserver nginx
+docker run -d -p 81:80 --name=webserver1 nginx
+docker run -d -P --name=webserver2 nginx
 
-#Hello World Docker Example with build argument
-docker build -t hello-world-docker:latest --build-arg JAR_FILE=./target/*.jar .
-
-#Hello World Docker Example with environmental variable
-docker run -p 8090:9090 -e "SERVER_PORT=9090" hello-world-docker
+#Mysql
+docker run -d -p 3306:3306 --name mysqldb -e MYSQL_ROOT_PASSWORD=password mysql
+docker run -d -p 8080:8080 adminer
 
 #Jenkins Docker image setup Example
 docker pull jenkins
 docker run -p 8080:8080 -p 50000:50000 jenkins
 3df307ca21874a66a0d10a8a9c3bb8		(=> Auth key)
 
-#Ngnix
-docker run --detach --publish=80:80 --name=webserver nginx
-docker run -d -p 80:80 --name=webserver nginx
+#RabbitMQ
+docker run -d --hostname my-rabbit --name rabbit-mq -p 8080:15672 rabbitmq:3-management
 
 #Save Image to Disk
 docker save -o images.tar image1 [image2 ..]
+docker save -o nginx-image.tar nginx
 
 #Load Image from Disk
 docker load -i images.tar
+docker load -i nginx-image.tar
 
-#Export Container to Disk
+#Export Container to Disk (exports container image)
 docker export -o myContainner1.tar container1
+docker export -o nginx-container.tar webserver
 
-#Import Container from Disk
-docker import myContainer1
-
+#Import Container Image from Disk
+docker import myContainer1.tar image1
+docker import nginx-container.tar  nginx			(updates existing nginx image)
+docker import nginx-container.tar  nginx-updated	(creates new nginx image)
 
 #Delete image
 docker image rm <imageid>
 docker image rm <imageid>
 docker rmi <imageid>
+
+##Hello World Docker Example
+docker build -t hello-world-docker:latest .
+docker run -p 8080:8080 --name="hello-world-docker" hello-world-docker
+
+##Hello World Docker Example with build argument
+docker build -t hello-world-docker:latest --build-arg JAR_FILE=./target/*.jar .
+
+##Hello World Docker Example with environmental variable
+docker run -p 8090:9090 -e "SERVER_PORT=9090" hello-world-docker
 
 #Login to DockerHub
 docker login
@@ -87,7 +99,7 @@ docker image ls
 #Run Docker image
 docker run -p 8080:8080 username/repository:tag
 
-docker run -p 8080:8080 dockrtraining/hello-world-docker
+docker run -p 8080:8080 --name hello-docker dockrtraining/hello-world-docker
 
 #Logout from DockerHub
 docker logout

@@ -47,6 +47,7 @@ Docker
 	
 	- Working with Public Registry
 		- Create Account in https://hub.docker.com
+		- Create Public Repository
 		- Docker Login
 		- Tag Image and Push Image
 		- Docker Logout	
